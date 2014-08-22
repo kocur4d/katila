@@ -11,19 +11,27 @@ describe EventHandler do
     it { is_expected.to respond_to(:add_invitation) }
     it { is_expected.to respond_to(:confirm_event) }
     it { is_expected.to respond_to(:confirmed?) }
+    it { is_expected.to respond_to(:meetings) }
+    it { is_expected.to respond_to(:invitations) }
   end
 
   describe '#add_meeting' do
+    let(:params) { {} }
     it 'is expected to create new meeting for an event' do
-      expect(event).to receive(:add_meeting)
-      subject.add_meeting
+      meetings_double = double('Meetings')
+      allow(event).to receive(:meetings).and_return(meetings_double)
+      expect(meetings_double).to receive(:create).with(params)
+      subject.add_meeting(params)
     end
   end
 
   describe '#add_invitation' do
+    let(:params) { {} }
     it 'is expected to create new invitation for an event' do
-      expect(event).to receive(:add_invitation)
-      subject.add_invitation
+      invitations_double = double('Invitations')
+      allow(event).to receive(:invitations).and_return(invitations_double)
+      expect(invitations_double).to receive(:create).with(params)
+      subject.add_invitation(params)
     end
   end
 
